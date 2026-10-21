@@ -27,7 +27,7 @@ public class Customer {
     private String nationality;
 
     @Column(nullable = false, name = "national_id", unique = true)
-    private Long nationalID;
+    private String nationalID;
 
     @Column(nullable = false)
     private boolean sex;
@@ -71,7 +71,7 @@ public class Customer {
     private String licenseState;
 
     @Column (name = "license_number")
-    private Long licenseNumber;
+    private String licenseNumber;
 
     @Column (name = "license_expiry_date")
     private LocalDate licenseExpiryDate;
@@ -94,8 +94,8 @@ public class Customer {
     public String getLastName() {return lastName;}
     public void setLastName(String lastName) {this.lastName = lastName;}
 
-    public Long getNationalID() {return nationalID;}
-    public void setNationalID(Long nationalID) {this.nationalID = nationalID;}
+    public String getNationalID() {return nationalID;}
+    public void setNationalID(String nationalID) {this.nationalID = nationalID;}
     
     public boolean isSex() {return sex;}
     public void setSex(boolean sex) {this.sex = sex;}
@@ -139,8 +139,8 @@ public class Customer {
     public String getLicenseState() {return licenseState;}
     public void setLicenseState(String licenseState) {this.licenseState = licenseState;}
     
-    public Long getLicenseNumber() {return licenseNumber;}
-    public void setLicenseNumber(Long licenseNumber) {this.licenseNumber = licenseNumber;}
+    public String getLicenseNumber() {return licenseNumber;}
+    public void setLicenseNumber(String licenseNumber) {this.licenseNumber = licenseNumber;}
     
     public LocalDate getLicenseExpiryDate() {return licenseExpiryDate;}
     public void setLicenseExpiryDate(LocalDate licenseExpiryDate) {this.licenseExpiryDate = licenseExpiryDate;}
