@@ -3,7 +3,6 @@ package com.joelotfy.marketplace.vehicle.dto;
 import java.math.BigDecimal;
 import java.lang.Boolean;
 
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
@@ -22,6 +21,5 @@ public record UpdateVehicleRequest(
     @Positive(message = "Rate must be greater than zero")
     BigDecimal dailyRate,
 
-    @NotNull
     Boolean active
 ) {}

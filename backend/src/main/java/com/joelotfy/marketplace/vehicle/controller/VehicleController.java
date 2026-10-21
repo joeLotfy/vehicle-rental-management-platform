@@ -56,7 +56,4 @@ public class VehicleController {
         // return new ResponseEntity<>(vehicleService.updateVehicle(request, id), HttpStatus.OK);
         return ResponseEntity.ok(vehicleService.updateVehicle(request, id));
     }
-    
-    
-    
 }
