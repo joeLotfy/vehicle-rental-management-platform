@@ -57,7 +57,7 @@ public record CreateCustomerRequest(
 
     String licenseState,
 
-    Long licenseNumber,
+    String licenseNumber,
 
     LocalDate licenseExpiryDate
 ) {}
