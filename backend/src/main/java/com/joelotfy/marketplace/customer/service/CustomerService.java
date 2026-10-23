@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 
 import com.joelotfy.marketplace.customer.dto.CreateCustomerRequest;
 import com.joelotfy.marketplace.customer.dto.CustomerResponse;
+import com.joelotfy.marketplace.customer.dto.PatchCustomerRequest;
 import com.joelotfy.marketplace.customer.entity.Customer;
 import com.joelotfy.marketplace.customer.mapper.CustomerMapper;
 import com.joelotfy.marketplace.customer.repository.CustomerRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -48,5 +50,22 @@ public class CustomerService {
     //get by id
     public Optional<Customer> getCustomerById(Long id) {
         return customerRepository.findById(id);
+    }
+
+
+    //patch
+    @Transactional 
+    public CustomerResponse patchCustomer(Long id, PatchCustomerRequest request){
+        //fetch managed entity
+        Customer customer = customerRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Not Found"));
+        
+        //mapper patches the fields automatically to managed entity
+        customerMapper.patchCustomerFromDto(request, customer);
+        
+        //Hibernate saves automatically
+
+        //map to response dto and return it
+        return customerMapper.toCustomerResponse(customer);
     }
 }

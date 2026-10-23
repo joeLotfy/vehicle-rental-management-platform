@@ -1,9 +1,9 @@
 package com.joelotfy.marketplace.customer.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.data.autoconfigure.web.DataWebProperties.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +16,7 @@ import java.util.Optional;
 import com.joelotfy.marketplace.customer.entity.Customer;
 import com.joelotfy.marketplace.customer.dto.CreateCustomerRequest;
 import com.joelotfy.marketplace.customer.dto.CustomerResponse;
-
+import com.joelotfy.marketplace.customer.dto.PatchCustomerRequest;
 import com.joelotfy.marketplace.customer.service.CustomerService;
 
 import jakarta.validation.Valid;
@@ -43,5 +43,10 @@ public class CustomerController {
     @PostMapping 
     public ResponseEntity<CustomerResponse> createCustomer (@Valid @RequestBody CreateCustomerRequest request){
         return ResponseEntity.ok(customerService.createCustomer(request));
+    }
+
+    @PatchMapping ("/{id}")
+    public ResponseEntity<CustomerResponse> patchCustomer (@PathVariable Long id ,@Valid @RequestBody PatchCustomerRequest request){
+        return ResponseEntity.ok(customerService.patchCustomer(id, request));    
     }
 }
