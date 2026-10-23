@@ -39,7 +39,7 @@ public class VehicleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Vehicle>> getMethodName(@Valid @PathVariable Long id) {
+    public ResponseEntity<Optional<Vehicle>> getVehicleById(@Valid @PathVariable Long id) {
         return new ResponseEntity<>(vehicleService.getVehicleById(id), HttpStatus.OK);
     }
     
