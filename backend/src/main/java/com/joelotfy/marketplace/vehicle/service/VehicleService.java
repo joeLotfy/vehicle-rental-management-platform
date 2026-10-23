@@ -49,15 +49,18 @@ public class VehicleService {
         );
     }
 
+    //get all
     public List<Vehicle> getAllVehicles(){
         return vehicleRepository.findAll();
     }
 
+    //get by id
     public Optional<Vehicle> getVehicleById(Long id){
         return vehicleRepository.findById(id);
     }
 
     //method for populating non-empty fields from an update requst into the entity
+    //used by the update method below
     private void updateVehicleFromDto(Vehicle vehicle, UpdateVehicleRequest dto) {
         if (dto.name() != null && !dto.name().isBlank()) {
             vehicle.setName(dto.name());
@@ -76,6 +79,7 @@ public class VehicleService {
         }
     }
 
+    //edit vehicle
     @Transactional
     public VehicleResponse updateVehicle(UpdateVehicleRequest  request, Long id){
         //find the requested entity and error if it doesnt exist 
