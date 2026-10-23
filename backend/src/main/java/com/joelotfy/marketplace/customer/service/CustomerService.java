@@ -26,7 +26,7 @@ public class CustomerService {
         this.customerRepository = customerRepository;        
     }
 
-    //create customer
+    //create customer POST API
     @Transactional 
     public CustomerResponse createCustomer(CreateCustomerRequest request){
         //map the dto to JPA entity

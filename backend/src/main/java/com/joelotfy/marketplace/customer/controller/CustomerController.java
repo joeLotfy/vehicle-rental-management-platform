@@ -5,6 +5,8 @@ import org.springframework.boot.data.autoconfigure.web.DataWebProperties.Pageabl
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +19,7 @@ import com.joelotfy.marketplace.customer.dto.CustomerResponse;
 
 import com.joelotfy.marketplace.customer.service.CustomerService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -35,5 +38,10 @@ public class CustomerController {
     @GetMapping ("/{id}")
     public ResponseEntity<Optional<Customer>> getCustomerById(@PathVariable Long id) {
         return ResponseEntity.ok(customerService.getCustomerById(id));
+    }
+
+    @PostMapping 
+    public ResponseEntity<CustomerResponse> createCustomer (@Valid @RequestBody CreateCustomerRequest request){
+        return ResponseEntity.ok(customerService.createCustomer(request));
     }
 }
