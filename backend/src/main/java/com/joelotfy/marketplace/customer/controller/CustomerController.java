@@ -1,6 +1,5 @@
 package com.joelotfy.marketplace.customer.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -27,8 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping ("/api/v1/customers")
 public class CustomerController {
 
-    @Autowired 
-    private CustomerService customerService;
+    private final CustomerService customerService;
 
     @GetMapping
     public ResponseEntity<List<Customer>> getAllCustomers(){
@@ -41,7 +39,7 @@ public class CustomerController {
     }
 
     @PostMapping 
-    public ResponseEntity<CustomerResponse> createCustomer (@Valid @RequestBody CreateCustomerRequest request){
+    public ResponseEntity<CustomerResponse> createCustomer (@RequestBody CreateCustomerRequest request){
         return ResponseEntity.ok(customerService.createCustomer(request));
     }
 

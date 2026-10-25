@@ -2,17 +2,29 @@ package com.joelotfy.marketplace.customer.entity;
 
 import java.time.LocalDate;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import java.lang.Boolean;
 
 @Entity
 @Table(name ="customers")
+@AllArgsConstructor 
+@NoArgsConstructor 
+@Builder
+@EntityListeners (AuditingEntityListener.class)
 public class Customer {
     
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @Column(nullable = false, length = 30)
     private String firstName;
@@ -30,10 +42,11 @@ public class Customer {
     private String nationalID;
 
     @Column(nullable = false)
-    private boolean sex;
+    private Boolean sex;
+    //Boolean (not boolean) can take null (for patch requests, the nullable=false is for the DB column)
 
     @Column(nullable = true)
-    private String Title;
+    private String title;
 
     @NotBlank (message = "Email is required")
     @Email (message = "invalid email format")
@@ -46,26 +59,25 @@ public class Customer {
     @Column (nullable = false, length = 30, name = "phone_number", unique = true)
     private String phoneNumber;
 
-    @Column (nullable = false, length = 50)
+    @Column (nullable = false, length = 255)
     private String street;
 
-    @Column (nullable = false, name = "city", length = 50)
+    @Column (nullable = false, name = "city", length = 255)
     private String city;
 
-    @Column (nullable = false, length = 50)
+    @Column (nullable = false, length = 255)
     private String state;
 
     @Column (nullable = true)
     private Long zipCode;
 
-    @Column (nullable = false, name = "created_at")
+    @Column (nullable = false, name = "created_at", updatable = false)
+    @CreatedDate 
     private LocalDate createdAt;
 
     @Column (nullable = true, name = "updated_at")
+    @LastModifiedDate 
     private LocalDate updatedAt;
-    
-    @Column (nullable = false, length = 15)
-    private String status;
 
     @Column (name = "license_state")
     private String licenseState;
@@ -76,14 +88,14 @@ public class Customer {
     @Column (name = "license_expiry_date")
     private LocalDate licenseExpiryDate;
 
-    @Column (nullable = false, length = 50, name = "password_hash")
+    @Column (nullable = false, length = 255, name = "password_hash")
     private String passwordHash;
 
 
 
     //getters and setters
-    public Long getId() {return Id;}
-    public void setId(Long id) {Id = id;}
+    public Long getId() {return id;}
+    public void setId(Long id) {this.id = id;}
 
     public String getFirstName() {return firstName;}
     public void setFirstName(String firstName) {this.firstName = firstName;}
@@ -97,11 +109,11 @@ public class Customer {
     public String getNationalID() {return nationalID;}
     public void setNationalID(String nationalID) {this.nationalID = nationalID;}
     
-    public boolean isSex() {return sex;}
-    public void setSex(boolean sex) {this.sex = sex;}
+    public Boolean isSex() {return sex;}
+    public void setSex(Boolean sex) {this.sex = sex;}
     
-    public String getTitle() {return Title;}
-    public void setTitle(String title) {Title = title;}
+    public String getTitle() {return title;}
+    public void setTitle(String title) {this.title = title;}
 
     public String getEmail() {return email;}
     public void setEmail(String email) {this.email = email;}
@@ -129,9 +141,6 @@ public class Customer {
     
     public LocalDate getUpdatedAt() {return updatedAt;}
     public void setUpdatedAt(LocalDate updatedAt) {this.updatedAt = updatedAt;}
-    
-    public String getStatus() {return status;}
-    public void setStatus(String status) {this.status = status;}
 
     public String getNationality() {return nationality;}
     public void setNationality(String nationality) {this.nationality = nationality;}
@@ -149,6 +158,4 @@ public class Customer {
     public void setPasswordHash(String passwordHash) {this.passwordHash = passwordHash;}
     
     
-    //for jpa reflection
-    protected Customer(){}
 }

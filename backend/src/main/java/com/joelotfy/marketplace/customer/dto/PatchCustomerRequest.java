@@ -3,7 +3,7 @@ package com.joelotfy.marketplace.customer.dto;
 import java.time.LocalDate;
 
 import com.joelotfy.marketplace.customer.annotation.MinAge;
-
+import java.lang.Boolean;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
@@ -23,9 +23,9 @@ public record PatchCustomerRequest(
 
     String nationalID,
 
-    boolean sex,
+    Boolean sex,
 
-    String Title,
+    String title,
 
     @Email (message = "invalid email format")
     String email,

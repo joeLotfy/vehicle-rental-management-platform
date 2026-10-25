@@ -2,7 +2,7 @@ package com.joelotfy.marketplace.customer.dto;
 import java.time.LocalDate;
 
 import com.joelotfy.marketplace.customer.annotation.MinAge;
-
+import java.lang.Boolean;
 import jakarta.validation.constraints.*;
 
 public record CustomerResponse(
@@ -23,9 +23,9 @@ public record CustomerResponse(
     String nationalID,
 
     @NotNull (message = "sorry we didn't get your gender")
-    boolean sex,
+    Boolean sex,
 
-    String Title,
+    String title,
 
     @NotBlank (message = "sorry we didnt get your e-mail address")
     @Email (message = "invalid email format")

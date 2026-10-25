@@ -3,7 +3,7 @@ package com.joelotfy.marketplace.customer.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.joelotfy.marketplace.customer.dto.CreateCustomerRequest;
@@ -15,18 +15,17 @@ import com.joelotfy.marketplace.customer.repository.CustomerRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor 
 public class CustomerService {
     
-    @Autowired 
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
-    private CustomerMapper customerMapper;
+    private final CustomerMapper customerMapper;
 
-    public CustomerService(CustomerRepository customerRepository){
-        this.customerRepository = customerRepository;        
-    }
+    private final PasswordEncoder passwordEncoder;
 
     //create customer POST API
     @Transactional 
@@ -34,6 +33,10 @@ public class CustomerService {
         //map the dto to JPA entity
         // Customer customerEntity = new Customer(); //will not try to map with a constructor cuz ion wanna inject all these fields in a constructor
         Customer customerEntity = customerMapper.toCustomer(request);
+
+        //hash the password from the DTO and inject it
+        String secureHash = passwordEncoder.encode(request.passwordHash());
+        customerEntity.setPasswordHash(secureHash);
 
         //save
         Customer savedCustomer = customerRepository.save(customerEntity);

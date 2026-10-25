@@ -1,5 +1,6 @@
 package com.joelotfy.marketplace.customer.dto;
 
+import java.lang.Boolean;
 import java.time.LocalDate;
 import com.joelotfy.marketplace.customer.annotation.MinAge;
 import jakarta.validation.constraints.*;
@@ -27,9 +28,9 @@ public record CreateCustomerRequest(
     String nationalID,
 
     @NotNull 
-    boolean sex,
+    Boolean sex,
 
-    String Title,
+    String title,
 
     @NotBlank (message = "Email is required")
     @Email (message = "invalid email format")
@@ -59,5 +60,8 @@ public record CreateCustomerRequest(
 
     String licenseNumber,
 
-    LocalDate licenseExpiryDate
+    LocalDate licenseExpiryDate,
+
+    @NotNull 
+    String passwordHash
 ) {}
