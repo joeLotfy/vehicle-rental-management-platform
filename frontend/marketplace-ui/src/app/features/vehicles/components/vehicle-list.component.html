@@ -1,0 +1,12 @@
+<h2>Vehicle List</h2>
+
+@if (vehicles$ | async; as vehicles) {
+    <div *ngFor="let vehicle of vehicles">
+        <h3>{{ vehicle.name }}: {{ vehicle.description }}</h3>
+        <p>Category: {{ vehicle.category }}</p>
+        <p>Daily Rate: {{ vehicle.dailyRate }}</p>
+    </div>
+
+} @else {
+    <p>Loading vehicles from database.... </p>
+}
